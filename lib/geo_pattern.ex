@@ -1,0 +1,2 @@
+defmodule GeoPattern do
+end
