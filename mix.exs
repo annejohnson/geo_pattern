@@ -7,6 +7,7 @@ defmodule GeoPattern.Mixfile do
      elixir: "~> 1.2",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     preferred_cli_env: [espec: :test],
      deps: deps]
   end
 
@@ -27,6 +28,6 @@ defmodule GeoPattern.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [{:espec, "~> 0.8.21", only: :test}]
   end
 end
