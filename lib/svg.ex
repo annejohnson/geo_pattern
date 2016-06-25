@@ -1,53 +1,67 @@
 defmodule SVG do
+  defstruct nodes: []
+
+  def to_string(%SVG{nodes: nds}) do
+    nds
+    |> Enum.map(&SVGNode.to_string/1)
+    |> Enum.join("")
+  end
+
   def rect(x, y, width, height) do
     attrs = [x: x, y: y, width: width, height: height]
-    elem_string("rect", Keyword.merge(attrs, [self_closing: true]))
+    %SVG{
+      nodes: [%SVGNode{name: "rect", self_closing: true, attrs: attrs}]
+    }
   end
 
   def circle(cx, cy, r) do
     attrs = [cx: cx, cy: cy, r: r]
-    elem_string("circle", Keyword.merge(attrs, [self_closing: true]))
+    %SVG{
+      nodes: [%SVGNode{name: "circle", self_closing: true, attrs: attrs}]
+    }
   end
 
   def path(str) do
-    elem_string("path", d: str, self_closing: true)
+    %SVG{
+      nodes: [%SVGNode{name: "path", self_closing: true, attrs: [d: str]}]
+    }
   end
 
   def polyline(str) do
-    elem_string("polyline", points: str, self_closing: true)
+    %SVG{
+      nodes: [%SVGNode{name: "polyline", self_closing: true, attrs: [points: str]}]
+    }
   end
 
-  def group(elems) do
-    elem_string("g") <> Enum.join(elems, "") <> elem_string("g", closing: true)
+  def get_node_list(svg_or_node_list) do
+    case svg_or_node_list do
+      %SVG{nodes: node_list} ->
+        node_list
+      node_list ->
+        node_list
+    end
+  end
+
+  def group(svg_or_node_list) do
+    %SVG{
+      nodes: List.flatten([
+        %SVGNode{name: "g"},
+        get_node_list(svg_or_node_list),
+        %SVGNode{name: "g", closing: true}
+      ])
+    }
   end
 
   def svg_header(width \\ 101, height \\ 101) do
-    elem_string("svg", xmlns: "http://www.w3.org/2000/svg", width: width, height: height)
+    attrs = [xmlns: "http://www.w3.org/2000/svg", width: width, height: height]
+    %SVG{
+      nodes: [%SVGNode{name: "svg", attrs: attrs}]
+    }
   end
 
   def svg_footer do
-    elem_string("svg", closing: true)
-  end
-
-  def elem_string(elem_name, attrs \\ []) do
-    self_closing = attrs |> Keyword.get(:self_closing, false)
-    closing = attrs |> Keyword.get(:closing, false)
-    attrs_to_write = attrs |> Keyword.drop([:closing, :self_closing])
-
-    prefix = if closing, do: "</", else: "<"
-    suffix = if self_closing, do: " />", else: ">"
-
-    middle = [elem_name, attr_string(attrs_to_write)]
-             |> Enum.filter(&String.first/1)
-             |> Enum.join(" ")
-    prefix <> middle <> suffix
-  end
-
-  def attr_string(attrs) do
-    attrs
-    |> Enum.map(fn({attr_name, attr_value}) ->
-         ~s(#{attr_name}="#{attr_value}")
-       end)
-    |> Enum.join(" ")
+    %SVG{
+      nodes: [%SVGNode{name: "svg", closing: true}]
+    }
   end
 end
