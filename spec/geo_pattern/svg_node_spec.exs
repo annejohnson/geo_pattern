@@ -1,0 +1,52 @@
+defmodule GeoPattern.SVGNodeSpec do
+  use ESpec
+  doctest GeoPattern.SVGNode
+
+  describe "to_string/1" do
+    context "with a self-closing SVG node" do
+      let :svg_node do
+        %GeoPattern.SVGNode{
+          name: "circle",
+          self_closing: true,
+          attrs: [cx: 5, cy: 2, r: 10]
+        }
+      end
+      let :expected_string, do: ~s[<circle cx="5" cy="2" r="10" />]
+
+      it "generates the correct svg node string" do
+        expect described_module.to_string(svg_node)
+        |> to(eq expected_string)
+      end
+    end
+
+    context "with a closing SVG node" do
+      let :svg_node, do: %GeoPattern.SVGNode{name: "svg", closing: true}
+      let :expected_string, do: "</svg>"
+
+      it "generates the correct svg node string" do
+        expect described_module.to_string(svg_node)
+        |> to(eq expected_string)
+      end
+    end
+
+    context "with an opening SVG node with attributes" do
+      let :svg_node, do: %GeoPattern.SVGNode{name: "g", attrs: [width: 101]}
+      let :expected_string, do: ~s[<g width="101">]
+
+      it "generates the correct svg node string" do
+        expect described_module.to_string(svg_node)
+        |> to(eq expected_string)
+      end
+    end
+  end
+
+  describe "attr_string/1" do
+    let :attrs, do: [fill: "rgb(0,0,0)", width: 100]
+    let :expected_attr_string, do: ~s[fill="rgb(0,0,0)" width="100"]
+
+    it "generates the correct attribute string" do
+      expect described_module.attr_string(attrs)
+      |> to(eq expected_attr_string)
+    end
+  end
+end
