@@ -1,4 +1,5 @@
-defmodule SVGNode do
+defmodule GeoPattern.SVGNode do
+  alias GeoPattern.SVGNode
   defstruct name: "svg", self_closing: false, closing: false, attrs: []
 
   def to_string(%SVGNode{name: name, self_closing: self_closing, closing: closing, attrs: attrs}) do

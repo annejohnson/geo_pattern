@@ -1,5 +1,5 @@
-defmodule SVG do
-  alias GeoPattern.Color
+defmodule GeoPattern.SVG do
+  alias GeoPattern.{SVGNode, Color}
 
   def to_string(node_list) do
     node_list
