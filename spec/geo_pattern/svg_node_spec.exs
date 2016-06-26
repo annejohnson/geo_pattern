@@ -41,12 +41,24 @@ defmodule GeoPattern.SVGNodeSpec do
   end
 
   describe "attr_string/1" do
-    let :attrs, do: [fill: "rgb(0,0,0)", width: 100]
-    let :expected_attr_string, do: ~s[fill="rgb(0,0,0)" width="100"]
+    context "with standard attributes" do
+      let :attrs, do: [fill: "rgb(0,0,0)", width: 100]
+      let :expected_attr_string, do: ~s[fill="rgb(0,0,0)" width="100"]
 
-    it "generates the correct attribute string" do
-      expect described_module.attr_string(attrs)
-      |> to(eq expected_attr_string)
+      it "generates the correct attribute string" do
+        expect described_module.attr_string(attrs)
+        |> to(eq expected_attr_string)
+      end
+    end
+
+    context "with attributes containing underscores" do
+      let :attrs, do: [fill_opacity: 0.5, stroke_opacity: 0.8]
+      let :expected_attr_string, do: ~s[fill-opacity="0.5" stroke-opacity="0.8"]
+
+      it "replaces attribute underscores with dashes" do
+        expect described_module.attr_string(attrs)
+        |> to(eq expected_attr_string)
+      end
     end
   end
 end
