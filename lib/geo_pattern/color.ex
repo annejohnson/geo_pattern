@@ -1,5 +1,5 @@
 defmodule GeoPattern.Color do
-  defstruct red: 0.0, green: 0.0, blue: 0.0
+  defstruct [:red, :green, :blue]
 
   def from_html(hex_string) do
     [red, green, blue] =
