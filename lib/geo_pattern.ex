@@ -8,8 +8,9 @@ defmodule GeoPattern do
 
     svg_nodes = SVG.svg_header(width, height) ++
                 SVG.background("#336699") ++
-                pattern_module.generate(input_string, options) ++
+                pattern_module.generate(input_string) ++
                 SVG.svg_footer
+
     SVG.to_string(svg_nodes)
   end
 end
