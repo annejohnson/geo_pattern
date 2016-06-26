@@ -1,5 +1,5 @@
 defmodule GeoPattern.Patterns.Squares do
-  alias GeoPattern.{SVG, Color, Utils}
+  alias GeoPattern.{SVG, Utils}
 
   @num_squares_per_row_or_column 6
 
