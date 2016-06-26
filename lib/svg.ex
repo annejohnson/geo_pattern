@@ -1,13 +1,19 @@
 defmodule SVG do
+  alias GeoPattern.Color
+
   def to_string(node_list) do
     node_list
     |> Enum.map(&SVGNode.to_string/1)
     |> Enum.join("")
   end
 
-  def rect(x, y, width, height) do
-    attrs = [x: x, y: y, width: width, height: height]
-    [%SVGNode{name: "rect", self_closing: true, attrs: attrs}]
+  def background(hex_color) do
+    rect(0, 0, "100%", "100%", fill: Color.to_svg(hex_color))
+  end
+
+  def rect(x, y, width, height, attrs \\ []) do
+    attrs_to_write = Keyword.merge(attrs, [x: x, y: y, width: width, height: height])
+    [%SVGNode{name: "rect", self_closing: true, attrs: attrs_to_write}]
   end
 
   def circle(cx, cy, r) do
