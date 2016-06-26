@@ -37,7 +37,7 @@ defmodule GeoPattern.SVG do
     ])
   end
 
-  def svg_header(width \\ 101, height \\ 101) do
+  def svg_header(width, height) do
     attrs = [xmlns: "http://www.w3.org/2000/svg", width: width, height: height]
     [%SVGNode{name: "svg", attrs: attrs}]
   end
