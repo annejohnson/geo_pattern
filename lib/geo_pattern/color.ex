@@ -1,5 +1,6 @@
 defmodule GeoPattern.Color do
-  defstruct [:red, :green, :blue]
+  alias GeoPattern.Color.RGB
+
   @hex_max 255
 
   def from_html(hex_string) do
@@ -10,10 +11,10 @@ defmodule GeoPattern.Color do
       |> chunk_to_red_green_blue_strings
       |> Enum.map(&hex_string_to_float/1)
 
-    %GeoPattern.Color{red: red, green: green, blue: blue}
+    %RGB{red: red, green: green, blue: blue}
   end
 
-  def to_svg(%GeoPattern.Color{red: red, green: green, blue: blue}) do
+  def to_svg(%RGB{red: red, green: green, blue: blue}) do
     [r, g, b] = [red, green, blue]
                 |> Enum.map(fn(color_decimal) -> color_decimal * @hex_max end)
                 |> Enum.map(&round/1)
