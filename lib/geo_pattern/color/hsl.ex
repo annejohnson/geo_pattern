@@ -39,18 +39,21 @@ defmodule GeoPattern.Color.HSL do
   end
 
   def get_hue(r, g, b) do
-    min = Enum.min([r, g, b])
-    max = Enum.max([r, g, b])
-
     cond do
-      min == max ->
+      r == g && g == b ->
         0
-      r == max ->
-        (g - b) / (max - min)
-      g == max ->
-        2.0 + (b - r) / (max - min)
+      r >= g && g >= b ->
+        (g - b) / (r - b)
+      g > r && r >= b ->
+        2.0 - (r - b) / (g - b)
+      g >= b && b > r ->
+        2.0 + (b - r) / (g - r)
+      b > g && g > r ->
+        4.0 - (g - r) / (b - r)
+      b > r && r >= g ->
+        4.0 + (r - g) / (b - g)
       :else ->
-        4.0 + (r - g) / (max - min)
+        6.0 - (b - g) / (r - g)
     end * 60.0
   end
 end
