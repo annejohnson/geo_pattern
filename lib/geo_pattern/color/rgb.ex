@@ -7,21 +7,22 @@ defmodule GeoPattern.Color.RGB do
       hex_string
       |> String.split("", trim: true)
       |> chunk_to_red_green_blue_strings
-      |> Enum.map(&hex_string_to_float/1)
+      |> Enum.map(&hex_string_to_num/1)
 
     %GeoPattern.Color.RGB{red: red, green: green, blue: blue}
   end
 
+  def r(%GeoPattern.Color.RGB{red: red}), do: red / @hex_max
+  def g(%GeoPattern.Color.RGB{green: green}), do: green / @hex_max
+  def b(%GeoPattern.Color.RGB{blue: blue}), do: blue / @hex_max
+
   def to_svg(%GeoPattern.Color.RGB{red: red, green: green, blue: blue}) do
-    [r, g, b] = [red, green, blue]
-                |> Stream.map(&(&1 * @hex_max))
-                |> Enum.map(&round/1)
-    ~s/rgb(#{r}, #{g}, #{b})/
+    ~s/rgb(#{red}, #{green}, #{blue})/
   end
 
-  defp hex_string_to_float(hex_string) do
-    {int, _} = Integer.parse(hex_string, 16)
-    int / @hex_max
+  defp hex_string_to_num(hex_string) do
+    {num, _} = Integer.parse(hex_string, 16)
+    num
   end
 
   defp chunk_to_red_green_blue_strings(hex_chars) when length(hex_chars) == 6 do

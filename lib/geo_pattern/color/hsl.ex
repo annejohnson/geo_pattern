@@ -5,15 +5,17 @@ defmodule GeoPattern.Color.HSL do
   def new(hex_string) when is_binary(hex_string) do
     hex_string |> RGB.new |> new
   end
-  def new(%RGB{red: r, green: g, blue: b}) do
-    lightness = get_lightness(r, g, b)
-    saturation = get_saturation(r, g, b)
-    hue = get_hue(r, g, b)
+  def new(rgb_color) do
+    [r, g, b] = [
+      RGB.r(rgb_color),
+      RGB.g(rgb_color),
+      RGB.b(rgb_color)
+    ]
 
     %GeoPattern.Color.HSL{
-      hue: hue,
-      saturation: saturation,
-      lightness: lightness
+      hue: get_hue(r, g, b),
+      saturation: get_saturation(r, g, b),
+      lightness: get_lightness(r, g, b)
     }
   end
 
