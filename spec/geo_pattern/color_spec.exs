@@ -1,6 +1,6 @@
 defmodule GeoPattern.ColorSpec do
   use ESpec
-  doctest GeoPattern.SVGNode
+  doctest GeoPattern.Color
 
   describe "to_svg/1" do
     context "when passed a hex string" do
