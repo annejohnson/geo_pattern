@@ -2,6 +2,9 @@ defmodule GeoPattern.Color.HSL do
   defstruct [:hue, :saturation, :lightness]
   alias GeoPattern.Color.RGB
 
+  def new(hex_string) when is_binary(hex_string) do
+    hex_string |> RGB.new |> new
+  end
   def new(%RGB{red: r, green: g, blue: b}) do
     lightness = get_lightness(r, g, b)
     saturation = get_saturation(r, g, b)
