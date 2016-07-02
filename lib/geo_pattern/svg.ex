@@ -3,7 +3,7 @@ defmodule GeoPattern.SVG do
 
   def to_string(node_list) do
     node_list
-    |> Enum.map(&SVGNode.to_string/1)
+    |> Stream.map(&SVGNode.to_string/1)
     |> Enum.join("")
   end
 

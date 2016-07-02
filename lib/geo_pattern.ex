@@ -13,4 +13,12 @@ defmodule GeoPattern do
 
     SVG.to_string(svg_nodes)
   end
+
+  def generate_to_file(input_string, filename) do
+    {:ok, file} = File.open(filename, [:write])
+    svg_string = GeoPattern.generate(input_string)
+
+    IO.binwrite(file, svg_string)
+    File.close(file)
+  end
 end

@@ -25,8 +25,8 @@ defmodule GeoPattern.Patterns.Squares do
   def square_size(input_string) do
     min_width = 10
     max_width = 60
-    hex_val = Utils.hex_val(input_string, 0)
-    Utils.remap(hex_val, 0, 15, min_width, max_width)
+    hex_int = Utils.hex_int(input_string, 0)
+    Utils.remap(hex_int, 0, 15, min_width, max_width)
   end
 
   def square_index(row_index, column_index) do
@@ -34,25 +34,32 @@ defmodule GeoPattern.Patterns.Squares do
   end
 
   def generate_row(input_string, row_index, square_size) do
-    Enum.map(row_and_column_range, fn(column_index) ->
-      hex_val = Utils.hex_val(
-        input_string,
-        square_index(row_index, column_index)
-      )
-      SVG.rect(
-        column_index * square_size,
-        row_index * square_size,
-        square_size,
-        square_size,
-        rect_attrs(hex_val)
-      )
-    end)
+    Enum.map(
+      row_and_column_range,
+      fn(column_index) ->
+        generate_rectangle(input_string, row_index, column_index, square_size)
+      end
+    )
   end
 
-  def rect_attrs(hex_val) do
+  def generate_rectangle(input_string, row_index, column_index, square_size) do
+    hex_int = Utils.hex_int(
+      input_string,
+      square_index(row_index, column_index)
+    )
+    SVG.rect(
+      column_index * square_size,
+      row_index * square_size,
+      square_size,
+      square_size,
+      rect_attrs(hex_int)
+    )
+  end
+
+  def rect_attrs(hex_int) do
     [
-      fill: Utils.fill_color(hex_val),
-      fill_opacity: Utils.opacity(hex_val),
+      fill: Utils.fill_color(hex_int),
+      fill_opacity: Utils.opacity(hex_int),
       stroke: Utils.stroke_color,
       stroke_opacity: Utils.stroke_opacity
     ]
