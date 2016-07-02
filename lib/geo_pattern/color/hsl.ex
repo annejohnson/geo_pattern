@@ -19,14 +19,47 @@ defmodule GeoPattern.Color.HSL do
     }
   end
 
-  def get_lightness(r, g, b) do
+  def h(%GeoPattern.Color.HSL{hue: hue}), do: hue / 360.0
+  def s(%GeoPattern.Color.HSL{saturation: saturation}), do: saturation / 100.0
+  def l(%GeoPattern.Color.HSL{lightness: lightness}), do: lightness / 100.0
+
+  def to_rgb(hsl_color) do
+    [h, s, l] = [
+      GeoPattern.Color.HSL.h(hsl_color),
+      GeoPattern.Color.HSL.s(hsl_color),
+      GeoPattern.Color.HSL.l(hsl_color)
+    ]
+
+    [r, g, b] =
+      if s == 0 do
+        [l, l, l]
+      else
+        q =
+          if l < 0.5 do
+            l * (1 + s)
+          else
+            l + s - (l * s)
+          end
+        p = (2 * l) - q
+
+        [
+          hue_to_rgb(p, q, h + 1/3),
+          hue_to_rgb(p, q, h),
+          hue_to_rgb(p, q, h - 1/3)
+        ]
+      end
+
+    RGB.new(r, g, b)
+  end
+
+  defp get_lightness(r, g, b) do
     min = Enum.min([r, g, b])
     max = Enum.max([r, g, b])
 
     ((min + max) / 2.0) * 100.0
   end
 
-  def get_saturation(r, g, b) do
+  defp get_saturation(r, g, b) do
     min = Enum.min([r, g, b])
     max = Enum.max([r, g, b])
 
@@ -40,7 +73,7 @@ defmodule GeoPattern.Color.HSL do
     end * 100.0
   end
 
-  def get_hue(r, g, b) do
+  defp get_hue(r, g, b) do
     cond do
       r == g && g == b ->
         0
@@ -57,5 +90,24 @@ defmodule GeoPattern.Color.HSL do
       :else ->
         6.0 - (b - g) / (r - g)
     end * 60.0
+  end
+
+  defp hue_to_rgb(p, q, t) do
+    t = cond do
+      t < 0 -> t + 1
+      t > 1 -> t - 1
+      :else -> t
+    end
+
+    cond do
+      t < 1/6 ->
+        p + (q - p) * 6 * t
+      t < 1/2 ->
+        q
+      t < 2/3 ->
+        p + (q - p) * (2/3 - t) * 6
+      :else ->
+        p
+    end
   end
 end

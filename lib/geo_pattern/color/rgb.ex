@@ -11,6 +11,15 @@ defmodule GeoPattern.Color.RGB do
 
     %GeoPattern.Color.RGB{red: red, green: green, blue: blue}
   end
+  def new(r, g, b) do
+    red = round(r * @hex_max)
+    green = round(g * @hex_max)
+    blue = round(b * @hex_max)
+
+    %GeoPattern.Color.RGB{red: red, green: green, blue: blue}
+  end
+
+  def to_hsl(rgb_color), do: GeoPattern.Color.HSL.new(rgb_color)
 
   def r(%GeoPattern.Color.RGB{red: red}), do: red / @hex_max
   def g(%GeoPattern.Color.RGB{green: green}), do: green / @hex_max
