@@ -1,5 +1,6 @@
 defmodule GeoPattern.Utils do
   alias GeoPattern.Seed
+  alias GeoPattern.Color.{RGB, HSL}
   require Integer
 
   def hex_int(input_string, index, len \\ 1) do
@@ -33,8 +34,8 @@ defmodule GeoPattern.Utils do
 
   def transform_color(input_string, rgb_color) do
     hsl_color =
-      %GeoPattern.Color.HSL{hue: hue, saturation: saturation} =
-        GeoPattern.Color.HSL.new(rgb_color)
+      %HSL{hue: hue, saturation: saturation} =
+        HSL.new(rgb_color)
 
     hue_offset = input_string
                  |> hex_int(14, 3)
@@ -52,6 +53,12 @@ defmodule GeoPattern.Utils do
       end
 
     %{hsl_color | hue: new_hue, saturation: new_saturation}
-    |> GeoPattern.Color.HSL.to_rgb
+    |> HSL.to_rgb
+  end
+
+  def base_color(input_string) do
+    input_string
+    |> transform_color(RGB.new("#336699"))
+    |> RGB.to_svg
   end
 end
