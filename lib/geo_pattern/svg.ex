@@ -1,5 +1,5 @@
 defmodule GeoPattern.SVG do
-  alias GeoPattern.{SVGNode, Color}
+  alias GeoPattern.SVGNode
 
   def to_string(node_list) do
     node_list
@@ -7,8 +7,8 @@ defmodule GeoPattern.SVG do
     |> Enum.join("")
   end
 
-  def background(hex_color) do
-    rect(0, 0, "100%", "100%", fill: Color.to_svg(hex_color))
+  def background(fill_string) do
+    rect(0, 0, "100%", "100%", fill: fill_string)
   end
 
   def rect(x, y, width, height, attrs \\ []) do

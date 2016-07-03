@@ -30,4 +30,28 @@ defmodule GeoPattern.Utils do
       "#222"
     end
   end
+
+  def transform_color(input_string, rgb_color) do
+    hsl_color =
+      %GeoPattern.Color.HSL{hue: hue, saturation: saturation} =
+        GeoPattern.Color.HSL.new(rgb_color)
+
+    hue_offset = input_string
+                 |> hex_int(14, 3)
+                 |> remap(0, 4095, 0, 359)
+    saturation_offset = input_string
+                        |> hex_int(17, 1)
+                        |> round
+
+    new_hue = hue - hue_offset
+    new_saturation =
+      if Integer.is_even(saturation_offset) do
+        saturation + saturation_offset
+      else
+        saturation - saturation_offset
+      end
+
+    %{hsl_color | hue: new_hue, saturation: new_saturation}
+    |> GeoPattern.Color.HSL.to_rgb
+  end
 end

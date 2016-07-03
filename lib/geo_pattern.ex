@@ -1,13 +1,16 @@
 defmodule GeoPattern do
-  alias GeoPattern.SVG
+  alias GeoPattern.{SVG, Utils}
 
   def generate(input_string, options \\ []) do
     pattern_module = GeoPattern.Patterns.Squares
     width = pattern_module.width(input_string)
     height = pattern_module.height(input_string)
+    base_color = input_string
+                 |> Utils.transform_color(GeoPattern.Color.RGB.new("#336699"))
+                 |> GeoPattern.Color.RGB.to_svg
 
     svg_nodes = SVG.svg_header(width, height) ++
-                SVG.background("#336699") ++
+                SVG.background(base_color) ++
                 pattern_module.generate(input_string) ++
                 SVG.svg_footer
 

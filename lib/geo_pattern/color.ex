@@ -6,6 +6,7 @@ defmodule GeoPattern.Color do
   def to_svg(hex_string) when is_binary(hex_string) do
     hex_string
     |> from_html
-    |> RGB.to_svg
+    |> to_svg
   end
+  def to_svg(rgb_color), do: RGB.to_svg(rgb_color)
 end
