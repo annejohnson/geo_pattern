@@ -1,5 +1,6 @@
 defmodule GeoPattern.Patterns.Squares do
-  alias GeoPattern.{SVG, Utils}
+  alias GeoPattern.Utils
+  alias GeoPattern.SVG.Node
 
   @num_squares_per_row_or_column 6
 
@@ -47,7 +48,7 @@ defmodule GeoPattern.Patterns.Squares do
       input_string,
       square_index(row_index, column_index)
     )
-    SVG.rect(
+    Node.rect(
       column_index * square_size,
       row_index * square_size,
       square_size,

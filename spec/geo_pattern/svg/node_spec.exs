@@ -1,11 +1,11 @@
-defmodule GeoPattern.SVGNodeSpec do
+defmodule GeoPattern.SVG.NodeSpec do
   use ESpec
-  doctest GeoPattern.SVGNode
+  doctest GeoPattern.SVG.Node
 
   describe "to_string/1" do
     context "with a self-closing SVG node" do
       let :svg_node do
-        %GeoPattern.SVGNode{
+        %GeoPattern.SVG.Node{
           name: "circle",
           self_closing: true,
           attrs: [cx: 5, cy: 2, r: 10]
@@ -20,7 +20,7 @@ defmodule GeoPattern.SVGNodeSpec do
     end
 
     context "with a closing SVG node" do
-      let :svg_node, do: %GeoPattern.SVGNode{name: "svg", closing: true}
+      let :svg_node, do: %GeoPattern.SVG.Node{name: "svg", closing: true}
       let :expected_string, do: "</svg>"
 
       it "generates the correct svg node string" do
@@ -30,7 +30,7 @@ defmodule GeoPattern.SVGNodeSpec do
     end
 
     context "with an opening SVG node with attributes" do
-      let :svg_node, do: %GeoPattern.SVGNode{name: "g", attrs: [width: 101]}
+      let :svg_node, do: %GeoPattern.SVG.Node{name: "g", attrs: [width: 101]}
       let :expected_string, do: ~s[<g width="101">]
 
       it "generates the correct svg node string" do

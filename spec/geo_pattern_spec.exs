@@ -2,6 +2,17 @@ defmodule GeoPatternSpec do
   use ESpec
   doctest GeoPattern
 
+  describe "generate/1" do
+    context "when passed an input string" do
+      let :input, do: "hello, world"
+
+      it "returns an SVG NodeCollection" do
+        expect described_module.generate(input)
+        |> to(be_struct GeoPattern.SVG.NodeCollection)
+      end
+    end
+  end
+
   describe "generate/2" do
     context "when an invalid option is given" do
     end
