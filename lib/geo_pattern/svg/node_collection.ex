@@ -27,3 +27,9 @@ defmodule GeoPattern.SVG.NodeCollection do
     new(node_list) |> group
   end
 end
+
+defimpl String.Chars, for: GeoPattern.SVG.NodeCollection do
+  def to_string(node_collection) do
+    GeoPattern.SVG.NodeCollection.to_string(node_collection)
+  end
+end
