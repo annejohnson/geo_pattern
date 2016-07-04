@@ -19,43 +19,46 @@ defmodule GeoPattern.Patterns.Chevrons do
     chevron_nodes = chevron_nodes(chevron_width, chevron_height)
     styles = chevron_group_styles(input_string, i)
 
-    nodes = make_chevron_group(x, y, chevron_nodes, chevron_width, chevron_height, styles)
+    nodes = make_chevron_group(
+      chevron_translate_x(x, chevron_width),
+      chevron_translate_y(y, chevron_height),
+      chevron_nodes,
+      styles
+    )
 
     if y == 0 do
-      nodes ++ make_wrapped_chevron_group(x, y, chevron_nodes, chevron_width, chevron_height, styles)
+      nodes ++
+        make_chevron_group(
+          chevron_translate_x(x, chevron_width),
+          chevron_translate_y(@num_groups_per_row_or_column, chevron_height),
+          chevron_nodes,
+          styles
+        )
     else
       nodes
     end
   end
 
-  def make_chevron_group(x, y, chevron_nodes, chevron_width, chevron_height, group_styles) do
+  def make_chevron_group(translate_x, translate_y, chevron_nodes, group_styles) do
     NodeCollection.group(
       chevron_nodes,
       Keyword.merge(group_styles, [
         transform: "translate(#{
           [
-            x * chevron_width,
-            (y * chevron_height * 0.66) -
-              (chevron_height / 2)
+            translate_x,
+            translate_y
           ] |> Enum.join(",")
         })"
       ])
     ).nodes
   end
 
-  def make_wrapped_chevron_group(x, y, chevron_nodes, chevron_width, chevron_height, group_styles) do
-    NodeCollection.group(
-      chevron_nodes,
-      Keyword.merge(group_styles, [
-        transform: "translate(#{
-          [
-            x * chevron_width,
-            (@num_groups_per_row_or_column * chevron_height * 0.66) -
-              (chevron_height / 2)
-          ] |> Enum.join(",")
-        })"
-      ])
-    ).nodes
+  def chevron_translate_y(y_index, chevron_height) do
+    (y_index * chevron_height * 0.66) - (chevron_height / 2)
+  end
+
+  def chevron_translate_x(x_index, chevron_width) do
+    x_index * chevron_width
   end
 
   def chevron_group_styles(input_string, group_index) do
