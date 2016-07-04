@@ -7,15 +7,12 @@ defmodule GeoPattern.SVG.NodeCollection do
     struct!(__MODULE__, nodes: node_list)
   end
 
-  def group(%__MODULE__{nodes: node_list}) do
-    new([
-      Node.new("g"),
+  def group(node_list, options \\ []) do
+    [
+      Node.new("g", attrs: options),
       node_list,
       Node.new("g", closing: true)
-    ])
-  end
-  def group(node_list) when is_list(node_list) do
-    new(node_list) |> group
+    ] |> new
   end
 end
 
