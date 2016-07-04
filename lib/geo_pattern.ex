@@ -15,7 +15,9 @@ defmodule GeoPattern do
 
   def generate_to_file(input_string, filename) do
     {:ok, file} = File.open(filename, [:write])
-    svg_string = GeoPattern.generate(input_string)
+    svg_string = input_string
+                 |> GeoPattern.generate
+                 |> to_string
 
     IO.binwrite(file, svg_string)
     File.close(file)
