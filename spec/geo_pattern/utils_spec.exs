@@ -2,8 +2,10 @@ defmodule GeoPattern.UtilsSpec do
   use ESpec
   doctest GeoPattern.Utils
 
+  let :input_string, do: "Hello, world"
+  let :hex_color_regex, do: ~r/\A#([[:xdigit:]]{3,3}|[[:xdigit:]]{6,6})\Z/
+
   describe "hex_int/2" do
-    let :input_string, do: "Hello, world"
     let :num_tests, do: 30
 
     it "returns integers between 0 and 15 (hex integers)" do
@@ -19,7 +21,6 @@ defmodule GeoPattern.UtilsSpec do
   end
 
   describe "hex_int/3" do
-    let :input_string, do: "Hello, world"
     let :num_tests, do: 30
 
     context "when passed a length of 2, signifying 2 hex digits" do
@@ -67,6 +68,54 @@ defmodule GeoPattern.UtilsSpec do
         )
         |> to(eq expected_new_value)
       end
+    end
+  end
+
+  describe "opacity/1" do
+    context "when passed numbers between 0 and 15 (hex integers)" do
+      it "returns floats between 0 and 1.0" do
+        Enum.each(
+          0..15,
+          fn(hex_int) ->
+            expect described_module.opacity(hex_int)
+            |> to(be_between 0, 1.0)
+          end
+        )
+      end
+    end
+  end
+
+  describe "stroke_opacity/0" do
+    it "returns a float between 0 and 1.0" do
+      expect described_module.stroke_opacity
+      |> to(be_between 0, 1.0)
+    end
+  end
+
+  describe "stroke_color/0" do
+    it "returns a hex color string" do
+      expect described_module.stroke_color
+      |> to(match hex_color_regex)
+    end
+  end
+
+  describe "fill_color/1" do
+    context "when passed numbers between 0 and 15 (hex integers)" do
+      it "returns hex color strings" do
+        Enum.each(
+          0..15,
+          fn(hex_int) ->
+            expect described_module.fill_color(hex_int)
+            |> to(match hex_color_regex)
+          end
+        )
+      end
+    end
+  end
+
+  describe "transform_color/2" do
+    it "transforms one RGB color into another" do
+
     end
   end
 end
