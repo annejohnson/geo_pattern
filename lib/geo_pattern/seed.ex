@@ -11,4 +11,6 @@ defmodule GeoPattern.Seed do
     {integer, _} = Integer.parse(hex_string, 16)
     integer
   end
+
+  def hex_color_string, do: "#336699"
 end

@@ -56,9 +56,12 @@ defmodule GeoPattern.Utils do
     |> HSL.to_rgb
   end
 
-  def base_color(input_string) do
+  def background_color_string(input_string) do
+    seed_rgb_color = Seed.hex_color_string
+                     |> RGB.new
+
     input_string
-    |> transform_color(RGB.new("#336699"))
+    |> transform_color(seed_rgb_color)
     |> RGB.to_svg
   end
 end

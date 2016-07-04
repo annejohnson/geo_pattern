@@ -26,11 +26,11 @@ defmodule GeoPattern do
   defp svg_collection(input_string, pattern_module) do
     width = pattern_module.width(input_string)
     height = pattern_module.height(input_string)
-    base_color = Utils.base_color(input_string)
+    background_color_string = Utils.background_color_string(input_string)
 
     NodeCollection.new([
       Node.svg_header(width, height),
-      Node.background(base_color),
+      Node.background(background_color_string),
       pattern_module.generate(input_string),
       Node.svg_footer
     ])

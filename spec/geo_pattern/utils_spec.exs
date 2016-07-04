@@ -115,7 +115,27 @@ defmodule GeoPattern.UtilsSpec do
 
   describe "transform_color/2" do
     it "transforms one RGB color into another" do
+      old_color = GeoPattern.Color.RGB.new("#6622aa")
+      new_color =
+        described_module.transform_color(input_string, old_color)
 
+      expect old_color.red
+      |> not_to(eq new_color.red)
+
+      expect old_color.green
+      |> not_to(eq new_color.green)
+
+      expect old_color.blue
+      |> not_to(eq new_color.blue)
+    end
+  end
+
+  describe "background_color_string/1" do
+    it "gets an RGB fill string based on the input string" do
+      color_fill_regex = ~r/\Argb\(\d{1,3}, ?\d{1,3}, ?\d{1,3}\)\Z/
+
+      expect described_module.background_color_string(input_string)
+      |> to(match color_fill_regex)
     end
   end
 end
