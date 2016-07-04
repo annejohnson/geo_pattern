@@ -72,4 +72,41 @@ defmodule GeoPattern.SVG.NodeSpec do
       |> to(eq "100%")
     end
   end
+
+  describe "rect/5" do
+    it "creates a rectangle node with the specified attributes" do
+      x = 5
+      y = 8
+      width = 30
+      height = 40
+      stroke_color = "#555"
+      attrs = [stroke_color: stroke_color]
+
+      rectangle_node = described_module.rect(x, y, width, height, attrs)
+
+      expect rectangle_node.name
+      |> to(eq "rect")
+
+      expect Keyword.get(rectangle_node.attrs, :x)
+      |> to(eq x)
+
+      expect Keyword.get(rectangle_node.attrs, :y)
+      |> to(eq y)
+
+      expect Keyword.get(rectangle_node.attrs, :width)
+      |> to(eq width)
+
+      expect Keyword.get(rectangle_node.attrs, :height)
+      |> to(eq height)
+
+      expect Keyword.get(rectangle_node.attrs, :stroke_color)
+      |> to(eq stroke_color)
+
+      expect rectangle_node.self_closing
+      |> to(be_truthy)
+
+      expect rectangle_node.closing
+      |> to(be_falsy)
+    end
+  end
 end
