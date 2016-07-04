@@ -3,8 +3,6 @@ defmodule GeoPattern.UtilsSpec do
   doctest GeoPattern.Utils
 
   let :input_string, do: "Hello, world"
-  let :hex_color_regex, do: ~r/\A#([[:xdigit:]]{3,3}|[[:xdigit:]]{6,6})\Z/
-
   describe "hex_int/2" do
     let :num_tests, do: 30
 
@@ -95,7 +93,7 @@ defmodule GeoPattern.UtilsSpec do
   describe "stroke_color/0" do
     it "returns a hex color string" do
       expect described_module.stroke_color
-      |> to(match hex_color_regex)
+      |> to(match shared.hex_color_regex)
     end
   end
 
@@ -106,7 +104,7 @@ defmodule GeoPattern.UtilsSpec do
           0..15,
           fn(hex_int) ->
             expect described_module.fill_color(hex_int)
-            |> to(match hex_color_regex)
+            |> to(match shared.hex_color_regex)
           end
         )
       end
@@ -128,7 +126,7 @@ defmodule GeoPattern.UtilsSpec do
   describe "background_color_string/1" do
     it "gets a hex color string based on the input string" do
       expect described_module.background_color_string(input_string)
-      |> to(match hex_color_regex)
+      |> to(match shared.hex_color_regex)
     end
   end
 end
