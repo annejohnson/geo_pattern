@@ -6,8 +6,8 @@ defmodule GeoPattern.SVG.Node do
     struct!(__MODULE__, node_attrs)
   end
 
-  def background(fill_string) do
-    rect(0, 0, "100%", "100%", fill: fill_string)
+  def background(hex_color_string) do
+    rect(0, 0, "100%", "100%", fill: hex_color_string)
   end
 
   def rect(x, y, width, height, attrs \\ []) do
