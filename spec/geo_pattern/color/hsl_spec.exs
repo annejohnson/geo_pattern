@@ -86,6 +86,14 @@ defmodule GeoPattern.Color.HSLSpec do
         end
       )
     end
+
+    it "returns a struct implementing the String.Chars protocol" do
+      hex_string = "#115500"
+      hsl_color = described_module.new(hex_string)
+
+      expect to_string(hsl_color)
+      |> to(eq hex_string)
+    end
   end
 
   describe "to_rgb/1" do

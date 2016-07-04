@@ -111,3 +111,11 @@ defmodule GeoPattern.Color.HSL do
     end
   end
 end
+
+defimpl String.Chars, for: GeoPattern.Color.HSL do
+  def to_string(hsl_color) do
+    hsl_color
+    |> GeoPattern.Color.HSL.to_rgb
+    |> Kernel.to_string
+  end
+end
