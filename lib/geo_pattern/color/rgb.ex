@@ -25,10 +25,6 @@ defmodule GeoPattern.Color.RGB do
   def g(%GeoPattern.Color.RGB{green: green}), do: green / @hex_max
   def b(%GeoPattern.Color.RGB{blue: blue}), do: blue / @hex_max
 
-  def to_svg(%GeoPattern.Color.RGB{red: red, green: green, blue: blue}) do
-    ~s/rgb(#{red}, #{green}, #{blue})/
-  end
-
   defp hex_string_to_num(hex_string) do
     {num, _} = Integer.parse(hex_string, 16)
     num
@@ -42,5 +38,24 @@ defmodule GeoPattern.Color.RGB do
   defp chunk_to_red_green_blue_strings(hex_chars) when length(hex_chars) == 3 do
     hex_chars
     |> Stream.map(&(&1 <> &1))
+  end
+end
+
+defimpl String.Chars, for: GeoPattern.Color.RGB do
+  def to_string(%GeoPattern.Color.RGB{red: red, green: green, blue: blue}) do
+    "#" <> (
+      [red, green, blue]
+      |> Stream.map(&Integer.to_string(&1, 16))
+      |> Stream.map(&format_hex_digit_string/1)
+      |> Enum.join("")
+    )
+  end
+
+  defp format_hex_digit_string(hex_digit_string) do
+     if String.length(hex_digit_string) < 2 do
+       "0" <> hex_digit_string
+     else
+       hex_digit_string
+     end
   end
 end

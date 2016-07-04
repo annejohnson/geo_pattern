@@ -8,16 +8,20 @@ defmodule GeoPattern.Utils do
   end
 
   def remap(value, value_min, value_max, new_min, new_max) do
+    num_decimal_places = 1
+
     value_float = value / 1
     value_range = value_max - value_min
     new_range = new_max - new_min
 
-    (value_float - value_min) * new_range / value_range + new_min
+    ((value_float - value_min) * new_range / value_range + new_min)
+    |> Float.round(num_decimal_places)
   end
 
   def opacity(hex_int) do
     opacity_min = 0.02
     opacity_max = 0.15
+
     remap(hex_int, 0, 15, opacity_min, opacity_max)
   end
 
@@ -26,7 +30,7 @@ defmodule GeoPattern.Utils do
 
   def fill_color(hex_int) do
     if Integer.is_even(hex_int) do
-      "#ddd"
+      "#DDD"
     else
       "#222"
     end
@@ -62,6 +66,6 @@ defmodule GeoPattern.Utils do
 
     input_string
     |> transform_color(seed_rgb_color)
-    |> RGB.to_svg
+    |> to_string
   end
 end
