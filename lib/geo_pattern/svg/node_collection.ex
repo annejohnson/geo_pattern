@@ -7,15 +7,6 @@ defmodule GeoPattern.SVG.NodeCollection do
     struct!(__MODULE__, nodes: node_list)
   end
 
-  def to_string(%__MODULE__{nodes: node_list}) do
-    __MODULE__.to_string(node_list)
-  end
-  def to_string(node_list) when is_list(node_list) do
-    node_list
-    |> Stream.map(&Node.to_string/1)
-    |> Enum.join("")
-  end
-
   def group(%__MODULE__{nodes: node_list}) do
     new([
       Node.new("g"),
@@ -29,7 +20,9 @@ defmodule GeoPattern.SVG.NodeCollection do
 end
 
 defimpl String.Chars, for: GeoPattern.SVG.NodeCollection do
-  def to_string(node_collection) do
-    GeoPattern.SVG.NodeCollection.to_string(node_collection)
+  def to_string(%GeoPattern.SVG.NodeCollection{nodes: node_list}) do
+    node_list
+    |> Stream.map(&Kernel.to_string/1)
+    |> Enum.join("")
   end
 end

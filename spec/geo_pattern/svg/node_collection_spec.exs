@@ -4,34 +4,30 @@ defmodule GeoPattern.SVG.NodeCollectionSpec do
   alias GeoPattern.SVG.Node
 
   describe "new/1" do
-    let :node_list, do: [Node.new("g", self_closing: true)]
-
-    it "returns a NodeCollection" do
-      expect described_module.new(node_list)
-      |> to(be_struct described_module)
-    end
-  end
-
-  describe "to_string/1" do
-    let :node_collection do
-      described_module.new([
+    let :node_list do
+      [
         Node.new("g", attrs: [width: 5]),
         Node.new("g", closing: true)
-      ])
+      ]
     end
 
-    let :expected_string do
-      ~s[<g width="5"></g>]
+    let :node_collection, do: described_module.new(node_list)
+
+    it "returns a NodeCollection" do
+      expect node_collection
+      |> to(be_struct described_module)
     end
 
-    it "returns the correct string" do
-      expect described_module.to_string(node_collection)
-      |> to(eq expected_string)
-    end
+    it "returns a struct that implements the String.Chars protocol" do
+      expected_string = ~s[<g width="5"></g>]
 
-    it "is used as the implementation of the String.Chars protocol" do
       expect to_string(node_collection)
       |> to(eq expected_string)
+    end
+
+    it "returns a struct with the list of nodes" do
+      expect node_collection.nodes
+      |> to(eq node_list)
     end
   end
 
@@ -44,11 +40,6 @@ defmodule GeoPattern.SVG.NodeCollectionSpec do
     end
 
     let :result, do: described_module.group(node_list)
-
-    it "returns a NodeCollection" do
-      expect result
-      |> to(be_struct described_module)
-    end
 
     it "contains an opening g node" do
       g_node = hd(result.nodes)

@@ -6,16 +6,6 @@ defmodule GeoPattern.SVG.Node do
     struct!(__MODULE__, node_attrs)
   end
 
-  def to_string(%__MODULE__{name: name, self_closing: self_closing, closing: closing, attrs: attrs}) do
-    prefix = if closing, do: "</", else: "<"
-    suffix = if self_closing, do: " />", else: ">"
-
-    middle = [name, attr_string(attrs)]
-             |> Stream.filter(&String.first/1)
-             |> Enum.join(" ")
-    prefix <> middle <> suffix
-  end
-
   def background(fill_string) do
     rect(0, 0, "100%", "100%", fill: fill_string)
   end
@@ -46,8 +36,20 @@ defmodule GeoPattern.SVG.Node do
   def svg_footer do
     new("svg", closing: true)
   end
+end
 
-  def attr_string(attrs) when is_list(attrs) do
+defimpl String.Chars, for: GeoPattern.SVG.Node do
+  def to_string(%GeoPattern.SVG.Node{name: name, self_closing: self_closing, closing: closing, attrs: attrs}) do
+    prefix = if closing, do: "</", else: "<"
+    suffix = if self_closing, do: " />", else: ">"
+
+    middle = [name, attr_string(attrs)]
+             |> Stream.filter(&String.first/1)
+             |> Enum.join(" ")
+    prefix <> middle <> suffix
+  end
+
+  defp attr_string(attrs) when is_list(attrs) do
     attrs
     |> Stream.map(fn({attr_name, attr_value}) ->
          ~s(#{format_attr_name(attr_name)}="#{attr_value}")
