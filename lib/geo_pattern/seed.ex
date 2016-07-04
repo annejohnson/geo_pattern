@@ -5,10 +5,13 @@ defmodule GeoPattern.Seed do
   end
 
   def to_integer(input_string, index, len \\ 1) do
-    hex_string = input_string
-                 |> get_hexdigest
-                 |> String.slice(index, len)
-    {integer, _} = Integer.parse(hex_string, 16)
+    full_hex_string = get_hexdigest(input_string)
+    normalized_index = rem(index, String.length(full_hex_string))
+
+    hex_substring = full_hex_string
+                    |> String.slice(normalized_index, len)
+
+    {integer, _} = Integer.parse(hex_substring, 16)
     integer
   end
 

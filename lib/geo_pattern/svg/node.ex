@@ -24,8 +24,9 @@ defmodule GeoPattern.SVG.Node do
     new("path", self_closing: true, attrs: [d: str])
   end
 
-  def polyline(str) do
-    new("polyline", self_closing: true, attrs: [points: str])
+  def polyline(str, attrs \\ []) do
+    attrs_to_write = Keyword.merge(attrs, [points: str])
+    new("polyline", self_closing: true, attrs: attrs_to_write)
   end
 
   def svg_header(width, height) do

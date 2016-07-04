@@ -10,7 +10,7 @@ defmodule GeoPattern do
   end
 
   def pattern_module(_input_string) do
-    GeoPattern.Patterns.Chevrons
+    GeoPattern.Patterns.Octagons
   end
 
   def generate_to_file(input_string, filename) do
