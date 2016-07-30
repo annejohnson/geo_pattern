@@ -80,7 +80,7 @@ defmodule GeoPattern.Patterns.Octagons do
   def octagon_size(input_string) do
     input_string
     |> Utils.hex_int(0, 1)
-    |> Utils.remap(0, 15, @min_octagon_size, @max_octagon_size)
+    |> Utils.hex_remap(@min_octagon_size, @max_octagon_size)
   end
 
   def width(input_string) do

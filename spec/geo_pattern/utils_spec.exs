@@ -3,6 +3,7 @@ defmodule GeoPattern.UtilsSpec do
   doctest GeoPattern.Utils
 
   let :input_string, do: "Hello, world"
+
   describe "hex_int/2" do
     let :num_tests, do: 30
 

@@ -84,7 +84,7 @@ defmodule GeoPattern.Patterns.Chevrons do
   def chevron_width(input_string) do
     input_string
     |> Utils.hex_int(0, 1)
-    |> Utils.remap(0, 15, @chevron_min_size, @chevron_max_size)
+    |> Utils.hex_remap(@chevron_min_size, @chevron_max_size)
   end
   def chevron_height(input_string), do: chevron_width(input_string)
 

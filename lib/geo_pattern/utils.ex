@@ -18,11 +18,15 @@ defmodule GeoPattern.Utils do
     |> Float.round(num_decimal_places)
   end
 
+  def hex_remap(hex_int, new_min, new_max) do
+    remap(hex_int, 0, 15, new_min, new_max)
+  end
+
   def opacity(hex_int) do
     opacity_min = 0.02
     opacity_max = 0.15
 
-    remap(hex_int, 0, 15, opacity_min, opacity_max)
+    hex_remap(hex_int, opacity_min, opacity_max)
   end
 
   def stroke_opacity, do: 0.02

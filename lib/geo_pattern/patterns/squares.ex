@@ -27,7 +27,7 @@ defmodule GeoPattern.Patterns.Squares do
     min_width = 10
     max_width = 60
     hex_int = Utils.hex_int(input_string, 0)
-    Utils.remap(hex_int, 0, 15, min_width, max_width)
+    Utils.hex_remap(hex_int, min_width, max_width)
   end
 
   def square_index(row_index, column_index) do

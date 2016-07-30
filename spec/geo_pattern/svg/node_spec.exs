@@ -8,7 +8,7 @@ defmodule GeoPattern.SVG.NodeSpec do
         GeoPattern.SVG.Node.new(
           "circle",
           self_closing: true,
-          attrs: [cx: 5, cy: 2, r: 10]
+          attrs: [cx: 5, cy: 2, r: 10, style: %{opacity: 0.5, stroke_width: 0}]
         )
       end
 
@@ -18,7 +18,7 @@ defmodule GeoPattern.SVG.NodeSpec do
       end
 
       it "becomes the expected string" do
-        expected_string = ~s[<circle cx="5" cy="2" r="10" />]
+        expected_string = ~s[<circle cx="5" cy="2" r="10" style="opacity:0.5;stroke-width:0;" />]
 
         expect to_string(svg_node)
         |> to(eq expected_string)

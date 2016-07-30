@@ -15,9 +15,9 @@ defmodule GeoPattern.SVG.Node do
     new("rect", self_closing: true, attrs: attrs_to_write)
   end
 
-  def circle(cx, cy, r) do
-    attrs = [cx: cx, cy: cy, r: r]
-    new("circle", self_closing: true, attrs: attrs)
+  def circle(cx, cy, r, attrs \\ []) do
+    attrs_to_write = Keyword.merge(attrs, [cx: cx, cy: cy, r: r])
+    new("circle", self_closing: true, attrs: attrs_to_write)
   end
 
   def path(str) do
@@ -53,10 +53,18 @@ defimpl String.Chars, for: GeoPattern.SVG.Node do
   defp attr_string(attrs) when is_list(attrs) do
     attrs
     |> Stream.map(fn({attr_name, attr_value}) ->
-         ~s(#{format_attr_name(attr_name)}="#{attr_value}")
+         ~s(#{format_attr_name(attr_name)}="#{format_attr_value(attr_value)}")
        end)
     |> Enum.join(" ")
   end
+
+  defp format_attr_value(attr_map) when is_map(attr_map) do
+    attr_map
+    |> Enum.reduce("", fn({k, v}, acc) ->
+         acc <> "#{format_attr_name(k)}:#{v};"
+       end)
+  end
+  defp format_attr_value(attr_value), do: attr_value
 
   defp format_attr_name(attr_name) do
     "#{attr_name}" |> String.replace("_", "-")
