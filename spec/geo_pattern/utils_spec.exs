@@ -70,6 +70,20 @@ defmodule GeoPattern.UtilsSpec do
     end
   end
 
+  describe "hex_remap/3" do
+    let :hex_int, do: 14
+    let :new_min, do: 15
+    let :new_max, do: 45
+    let :expected_new_value, do: 43
+
+    it "maps the hex int into the new range" do
+      expect(
+        described_module.hex_remap(hex_int, new_min, new_max)
+      )
+      |> to(eq expected_new_value)
+    end
+  end
+
   describe "opacity/1" do
     context "when passed numbers between 0 and 15 (hex integers)" do
       it "returns floats between 0 and 1.0" do
