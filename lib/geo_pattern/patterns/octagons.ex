@@ -2,19 +2,19 @@ defmodule GeoPattern.Patterns.Octagons do
   alias GeoPattern.Utils
   alias GeoPattern.SVG.{Node, NodeCollection}
 
-  @min_octagon_size 10
-  @max_octagon_size 60
+  @min_pattern_unit_size 10
+  @max_pattern_unit_size 60
 
-  @num_octagons_per_row_or_col 6
+  @num_pattern_units_in_row_or_col 6
 
   def generate(input_string) do
-    octagon_points
+    pattern_unit_points
     |> Stream.with_index
-    |> Enum.map(&make_octagon(&1, input_string))
+    |> Enum.map(&make_pattern_unit(&1, input_string))
     |> NodeCollection.new
   end
 
-  def make_octagon({{x, y}, i}, input_string) do
+  def make_pattern_unit({{x, y}, i}, input_string) do
     octagon_size = octagon_size(input_string)
 
     styles = Keyword.merge(
@@ -73,19 +73,19 @@ defmodule GeoPattern.Patterns.Octagons do
     |> Enum.map(&Float.round(&1 * 1.0, 1))
   end
 
-  def octagon_points do
-    for y <- 0..(@num_octagons_per_row_or_col),
-        x <- 0..(@num_octagons_per_row_or_col), do: {x, y}
+  def pattern_unit_points do
+    for y <- 0..(@num_pattern_units_in_row_or_col),
+        x <- 0..(@num_pattern_units_in_row_or_col), do: {x, y}
   end
 
   def octagon_size(input_string) do
     input_string
     |> Utils.hex_int(0, 1)
-    |> Utils.hex_remap(@min_octagon_size, @max_octagon_size)
+    |> Utils.hex_remap(@min_pattern_unit_size, @max_pattern_unit_size)
   end
 
   def width(input_string) do
-    octagon_size(input_string) * @num_octagons_per_row_or_col
+    octagon_size(input_string) * @num_pattern_units_in_row_or_col
   end
   def height(input_string), do: width(input_string)
 end

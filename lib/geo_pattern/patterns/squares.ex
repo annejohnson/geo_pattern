@@ -2,58 +2,37 @@ defmodule GeoPattern.Patterns.Squares do
   alias GeoPattern.Utils
   alias GeoPattern.SVG.{Node, NodeCollection}
 
-  @num_squares_per_row_or_column 6
+  @min_pattern_unit_size 10
+  @max_pattern_unit_size 60
+
+  @num_pattern_units_in_row_or_col 6
 
   def generate(input_string) do
-    square_sz = square_size(input_string)
-
-    row_and_column_range
-    |> Enum.map(fn(row_index) ->
-         generate_row(input_string, row_index, square_sz)
-       end)
-    |> List.flatten
+    pattern_unit_points
+    |> Stream.with_index
+    |> Enum.map(&make_pattern_unit(&1, input_string))
     |> NodeCollection.new
   end
 
-  def row_and_column_range do
-    0..(@num_squares_per_row_or_column - 1)
-  end
-
   def width(input_string) do
-    square_size(input_string) * @num_squares_per_row_or_column
+    square_size(input_string) * @num_pattern_units_in_row_or_col
   end
   def height(input_string), do: width(input_string)
 
   def square_size(input_string) do
-    min_width = 10
-    max_width = 60
     hex_int = Utils.hex_int(input_string, 0)
-    Utils.hex_remap(hex_int, min_width, max_width)
+    Utils.hex_remap(hex_int, @min_pattern_unit_size, @max_pattern_unit_size)
   end
 
-  def square_index(row_index, column_index) do
-    (row_index * @num_squares_per_row_or_column) + column_index
-  end
+  def make_pattern_unit({{x, y}, idx}, input_string) do
+    hex_int = Utils.hex_int(input_string, idx)
+    square_sz = square_size(input_string)
 
-  def generate_row(input_string, row_index, square_size) do
-    Enum.map(
-      row_and_column_range,
-      fn(column_index) ->
-        generate_rectangle(input_string, row_index, column_index, square_size)
-      end
-    )
-  end
-
-  def generate_rectangle(input_string, row_index, column_index, square_size) do
-    hex_int = Utils.hex_int(
-      input_string,
-      square_index(row_index, column_index)
-    )
     Node.rect(
-      column_index * square_size,
-      row_index * square_size,
-      square_size,
-      square_size,
+      y * square_sz,
+      x * square_sz,
+      square_sz,
+      square_sz,
       rect_attrs(hex_int)
     )
   end
@@ -65,5 +44,10 @@ defmodule GeoPattern.Patterns.Squares do
       stroke: Utils.stroke_color,
       stroke_opacity: Utils.stroke_opacity
     ]
+  end
+
+  def pattern_unit_points do
+    for x <- 0..(@num_pattern_units_in_row_or_col - 1),
+        y <- 0..(@num_pattern_units_in_row_or_col - 1), do: {x, y}
   end
 end

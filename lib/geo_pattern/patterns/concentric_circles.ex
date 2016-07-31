@@ -2,9 +2,10 @@ defmodule GeoPattern.Patterns.ConcentricCircles do
   alias GeoPattern.Utils
   alias GeoPattern.SVG.{Node, NodeCollection}
 
-  @min_circ_size 10
-  @max_circ_size 60
-  @num_pattern_units_in_row_or_col 5
+  @min_pattern_unit_size 10
+  @max_pattern_unit_size 60
+
+  @num_pattern_units_in_row_or_col 6
 
   def generate(input_string) do
     pattern_unit_points
@@ -50,14 +51,14 @@ defmodule GeoPattern.Patterns.ConcentricCircles do
   end
 
   def pattern_unit_points do
-    for y <- 0..(@num_pattern_units_in_row_or_col),
-        x <- 0..(@num_pattern_units_in_row_or_col), do: {x, y}
+    for y <- 0..(@num_pattern_units_in_row_or_col - 1),
+        x <- 0..(@num_pattern_units_in_row_or_col - 1), do: {x, y}
   end
 
   def ring_size(input_string) do
     input_string
     |> Utils.hex_int(0, 1)
-    |> Utils.hex_remap(@min_circ_size, @max_circ_size)
+    |> Utils.hex_remap(@min_pattern_unit_size, @max_pattern_unit_size)
   end
 
   def stroke_width(input_string) do

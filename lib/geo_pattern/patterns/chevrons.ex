@@ -2,19 +2,19 @@ defmodule GeoPattern.Patterns.Chevrons do
   alias GeoPattern.Utils
   alias GeoPattern.SVG.{Node, NodeCollection}
 
-  @num_groups_per_row_or_column 6
+  @min_pattern_unit_size 30
+  @max_pattern_unit_size 80
 
-  @chevron_min_size 30
-  @chevron_max_size 80
+  @num_pattern_units_in_row_or_col 6
 
   def generate(input_string) do
-    chevron_group_points
+    pattern_unit_points
     |> Stream.with_index
-    |> Enum.map(&make_chevron_group_tile(&1, input_string))
+    |> Enum.map(&make_pattern_unit(&1, input_string))
     |> NodeCollection.new
   end
 
-  def make_chevron_group_tile({{x, y}, i}, input_string) do
+  def make_pattern_unit({{x, y}, i}, input_string) do
     chevron_width = chevron_width(input_string)
     chevron_height = chevron_height(input_string)
     chevron_nodes = chevron_nodes(chevron_width, chevron_height)
@@ -31,7 +31,7 @@ defmodule GeoPattern.Patterns.Chevrons do
       nodes ++
         make_chevron_group(
           chevron_translate_x(x, chevron_width),
-          chevron_translate_y(@num_groups_per_row_or_column, chevron_height),
+          chevron_translate_y(@num_pattern_units_in_row_or_col, chevron_height),
           chevron_nodes,
           styles
         )
@@ -75,23 +75,23 @@ defmodule GeoPattern.Patterns.Chevrons do
   end
 
   def width(input_string) do
-    chevron_width(input_string) * @num_groups_per_row_or_column
+    chevron_width(input_string) * @num_pattern_units_in_row_or_col
   end
 
   def height(input_string) do
-    chevron_height(input_string) * @num_groups_per_row_or_column * 0.66
+    chevron_height(input_string) * @num_pattern_units_in_row_or_col * 0.66
   end
 
   def chevron_width(input_string) do
     input_string
     |> Utils.hex_int(0, 1)
-    |> Utils.hex_remap(@chevron_min_size, @chevron_max_size)
+    |> Utils.hex_remap(@min_pattern_unit_size, @max_pattern_unit_size)
   end
   def chevron_height(input_string), do: chevron_width(input_string)
 
-  def chevron_group_points do
-    for y <- 0..(@num_groups_per_row_or_column - 1),
-        x <- 0..(@num_groups_per_row_or_column - 1), do: {x, y}
+  def pattern_unit_points do
+    for y <- 0..(@num_pattern_units_in_row_or_col - 1),
+        x <- 0..(@num_pattern_units_in_row_or_col - 1), do: {x, y}
   end
 
   def chevron_nodes(chevron_width, chevron_height) do
