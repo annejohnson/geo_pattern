@@ -1,5 +1,5 @@
 defmodule GeoPattern.SVG.NodeCollectionSpec do
-  use ESpec
+  use ESpec, async: true
   doctest GeoPattern.SVG.NodeCollection
   alias GeoPattern.SVG.Node
 

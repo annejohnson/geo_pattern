@@ -1,5 +1,5 @@
 defmodule GeoPattern.Color.RGBSpec do
-  use ESpec
+  use ESpec, async: true
   doctest GeoPattern.Color.RGB
 
   describe "an RGB struct" do

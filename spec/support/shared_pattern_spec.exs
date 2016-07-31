@@ -1,6 +1,5 @@
 defmodule GeoPattern.Patterns.SharedPatternSpec do
   use ESpec, shared: true
-  alias GeoPattern.SVG.NodeCollection
 
   describe "generate/1" do
     it "returns the expected SVG string" do

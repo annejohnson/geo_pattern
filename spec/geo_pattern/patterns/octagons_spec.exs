@@ -1,5 +1,5 @@
 defmodule GeoPattern.Patterns.OctagonsSpec do
-  use ESpec
+  use ESpec, async: true
   doctest GeoPattern.Patterns.Octagons
   alias GeoPattern.Patterns.SharedPatternSpec
 

@@ -1,5 +1,5 @@
 defmodule GeoPattern.SeedSpec do
-  use ESpec
+  use ESpec, async: true
   doctest GeoPattern.Seed
 
   let :input_string, do: "Hello, world"

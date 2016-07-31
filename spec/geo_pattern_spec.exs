@@ -1,5 +1,5 @@
 defmodule GeoPatternSpec do
-  use ESpec
+  use ESpec, async: true
   doctest GeoPattern
 
   describe "generate/1" do

@@ -1,5 +1,5 @@
 defmodule GeoPattern.UtilsSpec do
-  use ESpec
+  use ESpec, async: true
   doctest GeoPattern.Utils
 
   let :input_string, do: "Hello, world"

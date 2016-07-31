@@ -1,5 +1,5 @@
 defmodule GeoPattern.SVG.NodeSpec do
-  use ESpec
+  use ESpec, async: true
   doctest GeoPattern.SVG.Node
 
   describe "new/2" do

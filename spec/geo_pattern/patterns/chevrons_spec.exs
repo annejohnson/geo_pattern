@@ -1,5 +1,5 @@
 defmodule GeoPattern.Patterns.ChevronsSpec do
-  use ESpec
+  use ESpec, async: true
   doctest GeoPattern.Patterns.Chevrons
   alias GeoPattern.Patterns.SharedPatternSpec
 

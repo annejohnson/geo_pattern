@@ -1,5 +1,5 @@
 defmodule GeoPattern.Color.HSLSpec do
-  use ESpec
+  use ESpec, async: true
   doctest GeoPattern.Color.HSL
 
   let :delta, do: 0.5

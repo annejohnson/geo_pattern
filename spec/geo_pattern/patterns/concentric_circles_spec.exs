@@ -1,5 +1,5 @@
 defmodule GeoPattern.Patterns.ConcentricCirclesSpec do
-  use ESpec
+  use ESpec, async: true
   doctest GeoPattern.Patterns.ConcentricCircles
   alias GeoPattern.Patterns.SharedPatternSpec
 

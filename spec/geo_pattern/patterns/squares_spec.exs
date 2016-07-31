@@ -1,5 +1,5 @@
 defmodule GeoPattern.Patterns.SquaresSpec do
-  use ESpec
+  use ESpec, async: true
   doctest GeoPattern.Patterns.Squares
   alias GeoPattern.Patterns.SharedPatternSpec
 
