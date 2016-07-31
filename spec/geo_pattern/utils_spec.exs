@@ -144,4 +144,22 @@ defmodule GeoPattern.UtilsSpec do
       |> to(match shared.hex_color_regex)
     end
   end
+
+  describe "snake_case_to_module_case/1" do
+    it "converts a snake-cased string into a module-cased string" do
+      expect(
+        described_module.snake_case_to_module_case("hello_world")
+      )
+      |> to(eq "HelloWorld")
+    end
+  end
+
+  describe "atom_to_pattern_module/1" do
+    it "converts a pattern atom into a module reference" do
+      expect(
+        described_module.atom_to_pattern_module(:concentric_circles)
+      )
+      |> to(eq GeoPattern.Patterns.ConcentricCircles)
+    end
+  end
 end

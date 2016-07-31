@@ -72,4 +72,18 @@ defmodule GeoPattern.Utils do
     |> transform_color(seed_rgb_color)
     |> to_string
   end
+
+  def snake_case_to_module_case(string) do
+    string
+    |> String.split("_")
+    |> Stream.map(&String.capitalize/1)
+    |> Enum.join
+  end
+
+  def atom_to_pattern_module(atom) do
+    module_string = atom
+                    |> to_string
+                    |> snake_case_to_module_case
+    :"Elixir.GeoPattern.Patterns.#{module_string}"
+  end
 end
