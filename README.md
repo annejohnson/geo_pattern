@@ -1,4 +1,4 @@
-# GeoPattern
+# GeoPattern [![Travis](https://img.shields.io/travis/annejohnson/geo_pattern.svg?style=flat-square)](https://travis-ci.org/annejohnson/geo_pattern)
 
 **TODO: Add description**
 
