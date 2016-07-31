@@ -11,3 +11,5 @@ ESpec.configure fn(config) ->
     :ok
   end
 end
+
+Code.require_file("spec/support/shared_pattern_spec.exs")
