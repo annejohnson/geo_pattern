@@ -2,9 +2,6 @@ defmodule GeoPattern.Patterns.NestedSquares do
   alias GeoPattern.Utils
   alias GeoPattern.SVG.{Node, NodeCollection}
 
-  @min_pattern_unit_size 10
-  @max_pattern_unit_size 60
-
   @num_pattern_units_in_row_or_col 6
 
   def generate(input_string) do
