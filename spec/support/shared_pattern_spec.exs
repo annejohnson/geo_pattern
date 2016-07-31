@@ -5,8 +5,8 @@ defmodule GeoPattern.Patterns.SharedPatternSpec do
   describe "generate/1" do
     it "returns the expected SVG string" do
       expect(
-        shared.module.generate(shared.input_string)
-        |> NodeCollection.new
+        shared.input_string
+        |> shared.module.generate
         |> to_string
       )
       |> to(eq shared.expected_svg_string)
@@ -16,7 +16,8 @@ defmodule GeoPattern.Patterns.SharedPatternSpec do
   describe "width/1" do
     it "returns the expected width" do
       expect(
-        shared.module.width(shared.input_string)
+        shared.input_string
+        |> shared.module.width
         |> round
       )
       |> to(eq shared.expected_width)
@@ -26,7 +27,8 @@ defmodule GeoPattern.Patterns.SharedPatternSpec do
   describe "height/1" do
     it "returns the expected height" do
       expect(
-        shared.module.height(shared.input_string)
+        shared.input_string
+        |> shared.module.height
         |> round
       )
       |> to(eq shared.expected_height)

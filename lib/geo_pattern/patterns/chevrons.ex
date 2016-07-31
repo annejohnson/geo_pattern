@@ -11,6 +11,7 @@ defmodule GeoPattern.Patterns.Chevrons do
     chevron_group_points
     |> Stream.with_index
     |> Enum.map(&make_chevron_group_tile(&1, input_string))
+    |> NodeCollection.new
   end
 
   def make_chevron_group_tile({{x, y}, i}, input_string) do

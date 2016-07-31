@@ -3,8 +3,10 @@ defmodule GeoPattern.SVG.NodeCollection do
   alias GeoPattern.SVG.Node
 
   def new(node_list) when is_list(node_list) do
-    node_list = List.flatten(node_list)
-    struct!(__MODULE__, nodes: node_list)
+    struct!(
+      __MODULE__,
+      nodes: List.flatten(node_list)
+    )
   end
 
   def group(node_list, options \\ []) do

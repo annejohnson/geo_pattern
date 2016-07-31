@@ -1,6 +1,6 @@
 defmodule GeoPattern.Patterns.Octagons do
   alias GeoPattern.Utils
-  alias GeoPattern.SVG.Node
+  alias GeoPattern.SVG.{Node, NodeCollection}
 
   @min_octagon_size 10
   @max_octagon_size 60
@@ -11,6 +11,7 @@ defmodule GeoPattern.Patterns.Octagons do
     octagon_points
     |> Stream.with_index
     |> Enum.map(&make_octagon(&1, input_string))
+    |> NodeCollection.new
   end
 
   def make_octagon({{x, y}, i}, input_string) do

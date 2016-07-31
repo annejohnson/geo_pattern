@@ -10,6 +10,7 @@ defmodule GeoPattern.Patterns.ConcentricCircles do
     pattern_unit_points
     |> Stream.with_index
     |> Enum.map(&make_pattern_unit(&1, input_string))
+    |> NodeCollection.new
   end
 
   def make_pattern_unit({{x, y}, idx}, input_string) do

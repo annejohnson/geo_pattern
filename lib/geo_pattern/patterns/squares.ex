@@ -1,6 +1,6 @@
 defmodule GeoPattern.Patterns.Squares do
   alias GeoPattern.Utils
-  alias GeoPattern.SVG.Node
+  alias GeoPattern.SVG.{Node, NodeCollection}
 
   @num_squares_per_row_or_column 6
 
@@ -12,6 +12,7 @@ defmodule GeoPattern.Patterns.Squares do
          generate_row(input_string, row_index, square_sz)
        end)
     |> List.flatten
+    |> NodeCollection.new
   end
 
   def row_and_column_range do
