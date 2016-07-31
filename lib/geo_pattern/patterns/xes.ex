@@ -22,6 +22,13 @@ defmodule GeoPattern.Patterns.Xes do
     x_sz = x_size(input_string)
     square_sz = square_size(input_string)
     plus_nds = plus_nodes(square_sz)
+    rotate_string =
+      [
+        45,
+        x_sz / 2,
+        x_sz / 2
+      ]
+      |> Enum.join(",")
 
     dy = if Integer.is_even(x) do
       x_sz * (y - 0.5)
@@ -51,14 +58,7 @@ defmodule GeoPattern.Patterns.Xes do
               dy - y * x_sz / 2
             ]
             |> Enum.join(",")
-          }) rotate(#{
-            [
-              45,
-              x_sz / 2,
-              x_sz / 2
-            ]
-            |> Enum.join(",")
-          })"
+          }) rotate(#{rotate_string})"
         )
       )
     ]
@@ -75,14 +75,7 @@ defmodule GeoPattern.Patterns.Xes do
                 dy - y * x_sz / 2
               ]
               |> Enum.join(",")
-            }) rotate(#{
-              [
-                45,
-                x_sz / 2,
-                x_sz / 2
-              ]
-              |> Enum.join(",")
-            })"
+            }) rotate(#{rotate_string})"
           )
         )
       ]
@@ -100,14 +93,7 @@ defmodule GeoPattern.Patterns.Xes do
                 dy2 - 6 * x_sz / 2
               ]
               |> Enum.join(",")
-            }) rotate(#{
-              [
-                45,
-                x_sz / 2,
-                x_sz / 2
-              ]
-              |> Enum.join(",")
-            })"
+            }) rotate(#{rotate_string})"
           )
         )
       ]
@@ -125,14 +111,7 @@ defmodule GeoPattern.Patterns.Xes do
                 dy2 - 11 * x_sz / 2
               ]
               |> Enum.join(",")
-            }) rotate(#{
-              [
-                45,
-                x_sz / 2,
-                x_sz / 2
-              ]
-              |> Enum.join(",")
-            })"
+            }) rotate(#{rotate_string})"
           )
         )
       ]
@@ -150,14 +129,7 @@ defmodule GeoPattern.Patterns.Xes do
                 dy2 - 6 * x_sz / 2
               ]
               |> Enum.join(",")
-            }) rotate(#{
-              [
-                45,
-                x_sz / 2,
-                x_sz / 2
-              ]
-              |> Enum.join(",")
-            })"
+            }) rotate(#{rotate_string})"
           )
         )
       ]
