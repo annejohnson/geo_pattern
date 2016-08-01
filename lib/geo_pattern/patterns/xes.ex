@@ -19,16 +19,12 @@ defmodule GeoPattern.Patterns.Xes do
 
   def make_pattern_unit({{x, y}, idx}, input_string) do
     hex_int = Utils.hex_int(input_string, idx, 1)
+    styles = [
+      fill: Utils.fill_color(hex_int),
+      style: %{opacity: Utils.opacity(hex_int)}
+    ]
+
     x_sz = x_size(input_string)
-    square_sz = square_size(input_string)
-    plus_nds = plus_nodes(square_sz)
-    rotate_string =
-      [
-        45,
-        x_sz / 2,
-        x_sz / 2
-      ]
-      |> Enum.join(",")
 
     dy = if Integer.is_even(x) do
       x_sz * (y - 0.5)
@@ -42,100 +38,95 @@ defmodule GeoPattern.Patterns.Xes do
       6 * x_sz - x_sz / 2 + x_sz / 4
     end
 
-    styles = [
-      fill: Utils.fill_color(hex_int),
-      style: %{opacity: Utils.opacity(hex_int)}
-    ]
-
     nodes = [
-      NodeCollection.group(
-        plus_nds,
-        Keyword.merge(
-          styles,
-          transform: "translate(#{
-            [
-              (x_sz / 2) * (x - 1),
-              dy - y * x_sz / 2
-            ]
-            |> Enum.join(",")
-          }) rotate(#{rotate_string})"
-        )
+      make_group(
+        input_string,
+        styles,
+        [
+          (x_sz / 2) * (x - 1),
+          dy - y * x_sz / 2
+        ]
       )
     ]
 
     if x == 0 do
       nodes = nodes ++ [
-        NodeCollection.group(
-          plus_nds,
-          Keyword.merge(
-            styles,
-            transform: "translate(#{
-              [
-                6 * x_sz / 2 - x_sz / 2,
-                dy - y * x_sz / 2
-              ]
-              |> Enum.join(",")
-            }) rotate(#{rotate_string})"
-          )
+        make_group(
+          input_string,
+          styles,
+          [
+            6 * x_sz / 2 - x_sz / 2,
+            dy - y * x_sz / 2
+          ]
         )
       ]
     end
 
     if y == 0 do
       nodes = nodes ++ [
-        NodeCollection.group(
-          plus_nds,
-          Keyword.merge(
-            styles,
-            transform: "translate(#{
-              [
-                x * x_sz / 2 - x_sz / 2,
-                dy2 - 6 * x_sz / 2
-              ]
-              |> Enum.join(",")
-            }) rotate(#{rotate_string})"
-          )
+        make_group(
+          input_string,
+          styles,
+          [
+            x * x_sz / 2 - x_sz / 2,
+            dy2 - 6 * x_sz / 2
+          ]
         )
       ]
     end
 
     if y == 5 do
       nodes = nodes ++ [
-        NodeCollection.group(
-          plus_nds,
-          Keyword.merge(
-            styles,
-            transform: "translate(#{
-              [
-                x * x_sz / 2 - x_sz / 2,
-                dy2 - 11 * x_sz / 2
-              ]
-              |> Enum.join(",")
-            }) rotate(#{rotate_string})"
-          )
+        make_group(
+          input_string,
+          styles,
+          [
+            x * x_sz / 2 - x_sz / 2,
+            dy2 - 11 * x_sz / 2
+          ]
         )
       ]
     end
 
     if x == 0 && y == 0 do
       nodes = nodes ++ [
-        NodeCollection.group(
-          plus_nds,
-          Keyword.merge(
-            styles,
-            transform: "translate(#{
-              [
-                6 * x_sz / 2 - x_sz / 2,
-                dy2 - 6 * x_sz / 2
-              ]
-              |> Enum.join(",")
-            }) rotate(#{rotate_string})"
-          )
+        make_group(
+          input_string,
+          styles,
+          [
+            6 * x_sz / 2 - x_sz / 2,
+            dy2 - 6 * x_sz / 2
+          ]
         )
       ]
     end
 
     NodeCollection.new(nodes)
+  end
+
+  defp make_group(input_string, styles, translate_coordinates) do
+    x_sz = x_size(input_string)
+    square_sz = square_size(input_string)
+    plus_nds = plus_nodes(square_sz)
+
+    rotate_string =
+      [
+        45,
+        x_sz / 2,
+        x_sz / 2
+      ]
+      |> Enum.join(",")
+
+    NodeCollection.group(
+      plus_nds,
+      Keyword.merge(
+        styles,
+        transform: "translate(#{
+          translate_coordinates
+          |> Enum.join(",")
+        }) rotate(#{rotate_string})"
+      )
+    )
   end
 
   def square_size(input_string) do
