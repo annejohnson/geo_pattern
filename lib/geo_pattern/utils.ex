@@ -80,6 +80,16 @@ defmodule GeoPattern.Utils do
     |> Enum.join
   end
 
+  def pattern_atom(input_string) do
+    available_pattern_atoms = GeoPattern.Patterns.pattern_atoms
+    pattern_idx = Enum.min([
+      hex_int(input_string, 20, 1),
+      tuple_size(available_pattern_atoms) - 1
+    ])
+
+    elem(available_pattern_atoms, pattern_idx)
+  end
+
   def atom_to_pattern_module(atom) do
     module_string = atom
                     |> to_string

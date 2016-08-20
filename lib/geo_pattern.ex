@@ -3,20 +3,15 @@ defmodule GeoPattern do
   alias GeoPattern.SVG.{NodeCollection, Node}
 
   def generate(input_string, options \\ []) do
-    pattern_module = input_string
-                     |> pattern_module(options)
+    pattern_module = pattern_module(input_string, options)
 
-    input_string
-    |> svg_collection(pattern_module)
+    svg_collection(input_string, pattern_module)
   end
 
-  def pattern_module(_input_string, options \\ []) do
-    case options[:pattern] do
-      nil ->
-        GeoPattern.Patterns.ConcentricCircles
-      pattern_atom ->
-        Utils.atom_to_pattern_module(pattern_atom)
-    end
+  def pattern_module(input_string, options \\ []) do
+    pattern_atom = options[:pattern] ||
+                   Utils.pattern_atom(input_string)
+    Utils.atom_to_pattern_module(pattern_atom)
   end
 
   def generate_to_file(input_string, filename, options \\ []) do

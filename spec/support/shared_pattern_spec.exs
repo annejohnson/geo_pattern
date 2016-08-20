@@ -33,4 +33,13 @@ defmodule GeoPattern.Patterns.SharedPatternSpec do
       |> to(eq shared.expected_height)
     end
   end
+
+  it "is in the tuple of available patterns" do
+    pattern_modules =
+      GeoPattern.Patterns.pattern_atoms
+      |> Tuple.to_list
+      |> Enum.map(&GeoPattern.Utils.atom_to_pattern_module/1)
+
+    Enum.member?(pattern_modules, shared.module)
+  end
 end
