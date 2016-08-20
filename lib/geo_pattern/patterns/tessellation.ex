@@ -1,11 +1,10 @@
 defmodule GeoPattern.Patterns.Tessellation do
-  alias GeoPattern.Utils
-  alias GeoPattern.SVG.{Node, NodeCollection}
+  use GeoPattern.Patterns.Shared
 
   @min_side_length 5
   @max_side_length 40
 
-  def generate(input_string) do
+  def pattern_nodes(input_string) do
     0..19
     |> Enum.map(&make_pattern_unit(&1, input_string))
     |> NodeCollection.new

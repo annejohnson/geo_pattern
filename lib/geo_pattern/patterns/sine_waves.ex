@@ -1,6 +1,5 @@
 defmodule GeoPattern.Patterns.SineWaves do
-  alias GeoPattern.Utils
-  alias GeoPattern.SVG.{Node, NodeCollection}
+  use GeoPattern.Patterns.Shared
 
   @min_period 100
   @max_period 400
@@ -9,7 +8,7 @@ defmodule GeoPattern.Patterns.SineWaves do
   @min_wave_width 3
   @max_wave_width 30
 
-  def generate(input_string) do
+  def pattern_nodes(input_string) do
     0..35
     |> Enum.map(&make_pattern_unit(&1, input_string))
     |> NodeCollection.new

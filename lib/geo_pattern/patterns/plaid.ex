@@ -1,11 +1,11 @@
 defmodule GeoPattern.Patterns.Plaid do
-  alias GeoPattern.Utils
-  alias GeoPattern.SVG.{Node, NodeCollection}
+  use GeoPattern.Patterns.Shared
+
   require Integer
 
   @num_pattern_units_in_row_or_col 17
 
-  def generate(input_string) do
+  def pattern_nodes(input_string) do
     NodeCollection.new([
       horizontal_stripe_nodes(input_string),
       vertical_stripe_nodes(input_string)

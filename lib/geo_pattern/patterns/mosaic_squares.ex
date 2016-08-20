@@ -1,6 +1,6 @@
 defmodule GeoPattern.Patterns.MosaicSquares do
-  alias GeoPattern.Utils
-  alias GeoPattern.SVG.{Node, NodeCollection}
+  use GeoPattern.Patterns.Shared
+
   require Integer
 
   @min_side_length 15
@@ -8,7 +8,7 @@ defmodule GeoPattern.Patterns.MosaicSquares do
 
   @num_pattern_units_in_row_or_col 4
 
-  def generate(input_string) do
+  def pattern_nodes(input_string) do
     pattern_unit_points
     |> Stream.with_index
     |> Enum.map(&make_pattern_unit(&1, input_string))

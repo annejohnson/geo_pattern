@@ -1,10 +1,9 @@
 defmodule GeoPattern.Patterns.NestedSquares do
-  alias GeoPattern.Utils
-  alias GeoPattern.SVG.{Node, NodeCollection}
+  use GeoPattern.Patterns.Shared
 
   @num_pattern_units_in_row_or_col 6
 
-  def generate(input_string) do
+  def pattern_nodes(input_string) do
     pattern_unit_points
     |> Stream.with_index
     |> Enum.map(&make_pattern_unit(&1, input_string))

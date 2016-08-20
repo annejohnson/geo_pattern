@@ -1,11 +1,11 @@
 defmodule GeoPattern.Patterns.SharedPatternSpec do
   use ESpec, shared: true
 
-  describe "generate/1" do
+  describe "pattern_nodes/1" do
     it "returns the expected SVG string" do
       expect(
         shared.input_string
-        |> shared.module.generate
+        |> shared.module.pattern_nodes
         |> to_string
       )
       |> to(eq shared.expected_svg_string)
