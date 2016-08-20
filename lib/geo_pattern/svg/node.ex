@@ -20,8 +20,9 @@ defmodule GeoPattern.SVG.Node do
     new("circle", self_closing: true, attrs: attrs_to_write)
   end
 
-  def path(str) do
-    new("path", self_closing: true, attrs: [d: str])
+  def path(str, attrs \\ []) do
+    attrs_to_write = Keyword.merge(attrs, [d: str])
+    new("path", self_closing: true, attrs: attrs_to_write)
   end
 
   def polyline(str, attrs \\ []) do

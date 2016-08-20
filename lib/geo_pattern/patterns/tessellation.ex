@@ -1,7 +1,6 @@
 defmodule GeoPattern.Patterns.Tessellation do
   alias GeoPattern.Utils
   alias GeoPattern.SVG.{Node, NodeCollection}
-  require Integer
 
   @min_side_length 5
   @max_side_length 40
