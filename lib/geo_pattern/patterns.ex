@@ -1,4 +1,6 @@
 defmodule GeoPattern.Patterns do
+  alias GeoPattern.Utils
+
   def pattern_atoms do
     {
       :chevrons,
@@ -18,5 +20,18 @@ defmodule GeoPattern.Patterns do
       :triangles,
       :xes
     }
+  end
+
+  def pattern_modules do
+    pattern_atoms
+    |> Tuple.to_list
+    |> Enum.map(&pattern_atom_to_module/1)
+  end
+
+  def pattern_atom_to_module(atom) do
+    module_string = atom
+                    |> to_string
+                    |> Utils.snake_case_to_module_case
+    :"Elixir.GeoPattern.Patterns.#{module_string}"
   end
 end

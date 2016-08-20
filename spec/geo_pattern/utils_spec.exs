@@ -153,13 +153,4 @@ defmodule GeoPattern.UtilsSpec do
       |> to(eq "HelloWorld")
     end
   end
-
-  describe "atom_to_pattern_module/1" do
-    it "converts a pattern atom into a module reference" do
-      expect(
-        described_module.atom_to_pattern_module(:concentric_circles)
-      )
-      |> to(eq GeoPattern.Patterns.ConcentricCircles)
-    end
-  end
 end

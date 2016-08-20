@@ -89,11 +89,4 @@ defmodule GeoPattern.Utils do
 
     elem(available_pattern_atoms, pattern_idx)
   end
-
-  def atom_to_pattern_module(atom) do
-    module_string = atom
-                    |> to_string
-                    |> snake_case_to_module_case
-    :"Elixir.GeoPattern.Patterns.#{module_string}"
-  end
 end
