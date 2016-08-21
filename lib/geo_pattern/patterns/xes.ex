@@ -33,9 +33,9 @@ defmodule GeoPattern.Patterns.Xes do
     end
 
     dy2 = if Integer.is_even(x) do
-      6 * x_sz - x_sz / 2
+      x_sz * 5.5
     else
-      6 * x_sz - x_sz / 2 + x_sz / 4
+      x_sz * 5.75
     end
 
     nodes = [
@@ -55,7 +55,7 @@ defmodule GeoPattern.Patterns.Xes do
           input_string,
           styles,
           [
-            6 * x_sz / 2 - x_sz / 2,
+            (x_sz / 2) * 5,
             dy - y * x_sz / 2
           ]
         )
@@ -68,8 +68,8 @@ defmodule GeoPattern.Patterns.Xes do
           input_string,
           styles,
           [
-            x * x_sz / 2 - x_sz / 2,
-            dy2 - 6 * x_sz / 2
+            (x_sz / 2) * (x - 1),
+            dy2 - 3 * x_sz
           ]
         )
       ]
@@ -81,8 +81,8 @@ defmodule GeoPattern.Patterns.Xes do
           input_string,
           styles,
           [
-            x * x_sz / 2 - x_sz / 2,
-            dy2 - 11 * x_sz / 2
+            (x_sz / 2) * (x - 1),
+            dy - 5.5 * x_sz
           ]
         )
       ]
@@ -94,8 +94,8 @@ defmodule GeoPattern.Patterns.Xes do
           input_string,
           styles,
           [
-            6 * x_sz / 2 - x_sz / 2,
-            dy2 - 6 * x_sz / 2
+            (x_sz / 2) * 5,
+            dy2 - 3 * x_sz
           ]
         )
       ]
