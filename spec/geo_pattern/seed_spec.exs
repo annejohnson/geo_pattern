@@ -19,6 +19,7 @@ defmodule GeoPattern.SeedSpec do
         1..num_tests,
         fn(i) ->
           result = described_module.to_integer(input_string, i)
+
           expect result
           |> to(be_between 0, 15)
         end
@@ -35,6 +36,7 @@ defmodule GeoPattern.SeedSpec do
           1..num_tests,
           fn(i) ->
             result = described_module.to_integer(input_string, i, 2)
+
             expect result
             |> to(be_between 0, 255)
           end
