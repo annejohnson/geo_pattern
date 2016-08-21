@@ -1,6 +1,5 @@
 defmodule GeoPatternSpec do
   use ESpec, async: true
-  doctest GeoPattern
 
   let :input, do: "once upon a time"
 
