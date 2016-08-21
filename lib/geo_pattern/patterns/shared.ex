@@ -2,6 +2,8 @@ defmodule GeoPattern.Patterns.Shared do
   alias GeoPattern.Utils
   alias GeoPattern.SVG.{Node, NodeCollection}
 
+  @hex_color_regex ~r/\A#([[:xdigit:]]{3,3}|[[:xdigit:]]{6,6})\Z/
+
   defmacro __using__(_) do
     quote do
       alias GeoPattern.Utils
@@ -36,8 +38,14 @@ defmodule GeoPattern.Patterns.Shared do
 
   def background_color_string(input_string, options) do
     case options[:color] do
-      nil -> Utils.background_color_string(input_string)
-      col -> col
+      nil ->
+        Utils.background_color_string(input_string)
+      col ->
+        unless String.match?(col, @hex_color_regex) do
+          raise ArgumentError,
+                message: "Invalid :color option: \"#{col}\". Expected hex format (\"#333\" or \"#a1B318\")."
+        end
+        col
     end
   end
 end

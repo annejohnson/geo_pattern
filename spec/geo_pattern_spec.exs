@@ -14,7 +14,7 @@ defmodule GeoPatternSpec do
   end
 
   describe "generate/2" do
-    context "when a color option is given" do
+    context "when a valid color option is given" do
       let :color, do: "#a133b6"
 
       it "sets the background as the specified color" do
@@ -26,6 +26,15 @@ defmodule GeoPatternSpec do
 
         expect background_node.attrs[:fill]
         |> to(eq color)
+      end
+    end
+
+    context "when an invalid color option is given" do
+      let :invalid_color, do: "not-a-color"
+
+      it "raises an error" do
+        expect (fn -> described_module.generate(input, color: invalid_color) end)
+        |> to(raise_exception ArgumentError)
       end
     end
 

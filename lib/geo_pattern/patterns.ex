@@ -28,7 +28,8 @@ defmodule GeoPattern.Patterns do
 
   def pattern_atom_to_module(atom) do
     unless Enum.member?(Tuple.to_list(pattern_atoms), atom) do
-      raise ArgumentError, message: "Invalid pattern: #{atom}"
+      raise ArgumentError,
+            message: "Invalid pattern: :#{atom}. Call #{__MODULE__}.pattern_atoms/0 to see available patterns."
     end
 
     module_string = atom
