@@ -1,6 +1,4 @@
 defmodule GeoPattern.Patterns do
-  alias GeoPattern.Utils
-
   def pattern_atoms do
     {
       :chevrons,
@@ -31,7 +29,7 @@ defmodule GeoPattern.Patterns do
   def pattern_atom_to_module(atom) do
     module_string = atom
                     |> to_string
-                    |> Utils.snake_case_to_module_case
+                    |> GeoPattern.Utils.snake_case_to_module_case
     :"Elixir.GeoPattern.Patterns.#{module_string}"
   end
 end

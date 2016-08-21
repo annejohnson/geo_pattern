@@ -1,6 +1,7 @@
 defmodule GeoPattern.Utils do
   alias GeoPattern.Seed
   alias GeoPattern.Color.{RGB, HSL}
+
   require Integer
 
   def hex_int(input_string, index, len \\ 1) do

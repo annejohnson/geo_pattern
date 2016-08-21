@@ -1,5 +1,6 @@
 defmodule GeoPattern.Color.HSL do
   defstruct [:hue, :saturation, :lightness]
+
   alias GeoPattern.Color.RGB
 
   def new(hex_string) when is_binary(hex_string) do
@@ -12,22 +13,22 @@ defmodule GeoPattern.Color.HSL do
       RGB.b(rgb_color)
     ]
 
-    %GeoPattern.Color.HSL{
+    %__MODULE__{
       hue: get_hue(r, g, b),
       saturation: get_saturation(r, g, b),
       lightness: get_lightness(r, g, b)
     }
   end
 
-  def h(%GeoPattern.Color.HSL{hue: hue}), do: hue / 360.0
-  def s(%GeoPattern.Color.HSL{saturation: saturation}), do: saturation / 100.0
-  def l(%GeoPattern.Color.HSL{lightness: lightness}), do: lightness / 100.0
+  def h(%__MODULE__{hue: hue}), do: hue / 360.0
+  def s(%__MODULE__{saturation: saturation}), do: saturation / 100.0
+  def l(%__MODULE__{lightness: lightness}), do: lightness / 100.0
 
   def to_rgb(hsl_color) do
     [h, s, l] = [
-      GeoPattern.Color.HSL.h(hsl_color),
-      GeoPattern.Color.HSL.s(hsl_color),
-      GeoPattern.Color.HSL.l(hsl_color)
+      __MODULE__.h(hsl_color),
+      __MODULE__.s(hsl_color),
+      __MODULE__.l(hsl_color)
     ]
 
     [r, g, b] =

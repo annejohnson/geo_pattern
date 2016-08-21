@@ -1,6 +1,4 @@
 defmodule GeoPattern do
-  alias GeoPattern.{Patterns, Utils}
-
   def generate(input_string, options \\ []) do
     pattern_module(
       input_string,
@@ -23,7 +21,7 @@ defmodule GeoPattern do
 
   defp pattern_module(input_string, options) do
     pattern_atom = options[:pattern] ||
-                   Utils.pattern_atom(input_string)
-    Patterns.pattern_atom_to_module(pattern_atom)
+                   GeoPattern.Utils.pattern_atom(input_string)
+    GeoPattern.Patterns.pattern_atom_to_module(pattern_atom)
   end
 end
