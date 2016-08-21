@@ -52,7 +52,22 @@ iex> GeoPattern.generate_to_file("fairies", "background.svg", pattern: :concentr
 
 ### Available Patterns
 
-TODO.
+- [:chevrons](https://github.com/annejohnson/geo_pattern/blob/master/examples/chevrons.png)
+- [:concentric_circles](https://github.com/annejohnson/geo_pattern/blob/master/examples/concentric_circles.png)
+- [:diamonds](https://github.com/annejohnson/geo_pattern/blob/master/examples/diamonds.png)
+- [:hexagons](https://github.com/annejohnson/geo_pattern/blob/master/examples/hexagons.png)
+- [:mosaic_squares](https://github.com/annejohnson/geo_pattern/blob/master/examples/mosaic_squares.png)
+- [:nested_squares](https://github.com/annejohnson/geo_pattern/blob/master/examples/nested_squares.png)
+- [:octagons](https://github.com/annejohnson/geo_pattern/blob/master/examples/octagons.png)
+- [:overlapping_circles](https://github.com/annejohnson/geo_pattern/blob/master/examples/overlapping_circles.png)
+- [:overlapping_rings](https://github.com/annejohnson/geo_pattern/blob/master/examples/overlapping_rings.png)
+- [:plaid](https://github.com/annejohnson/geo_pattern/blob/master/examples/plaid.png)
+- [:plus_signs](https://github.com/annejohnson/geo_pattern/blob/master/examples/plus_signs.png)
+- [:sine_waves](https://github.com/annejohnson/geo_pattern/blob/master/examples/sine_waves.png)
+- [:squares](https://github.com/annejohnson/geo_pattern/blob/master/examples/squares.png)
+- [:tessellation](https://github.com/annejohnson/geo_pattern/blob/master/examples/tessellation.png)
+- [:triangles](https://github.com/annejohnson/geo_pattern/blob/master/examples/triangles.png)
+- [:xes](https://github.com/annejohnson/geo_pattern/blob/master/examples/xes.png)
 
 ## Contributing
 
