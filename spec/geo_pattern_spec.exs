@@ -53,6 +53,12 @@ defmodule GeoPatternSpec do
     end
 
     context "when an invalid pattern is given" do
+      let :invalid_pattern, do: :zigzag
+
+      it "raises an error" do
+        expect (fn -> described_module.generate(input, pattern: invalid_pattern) end)
+        |> to(raise_exception ArgumentError)
+      end
     end
   end
 end
