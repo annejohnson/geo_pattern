@@ -74,11 +74,11 @@ defmodule GeoPattern.Patterns.Chevrons do
   end
 
   def width(input_string) do
-    chevron_width(input_string) * @num_pattern_units_in_row_or_col
+    trunc(chevron_width(input_string) * @num_pattern_units_in_row_or_col)
   end
 
   def height(input_string) do
-    chevron_height(input_string) * @num_pattern_units_in_row_or_col * 0.66
+    trunc(chevron_height(input_string) * @num_pattern_units_in_row_or_col * 0.66)
   end
 
   def chevron_width(input_string) do

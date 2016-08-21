@@ -136,10 +136,10 @@ defmodule GeoPattern.Patterns.Hexagons do
   end
 
   def width(input_string) do
-    3 * hex_width(input_string) + 3 * side_length(input_string)
+    trunc(3 * hex_width(input_string) + 3 * side_length(input_string))
   end
 
   def height(input_string) do
-    hex_height(input_string) * @num_pattern_units_in_row_or_col
+    trunc(hex_height(input_string) * @num_pattern_units_in_row_or_col)
   end
 end

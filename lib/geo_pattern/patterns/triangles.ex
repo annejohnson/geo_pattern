@@ -125,10 +125,10 @@ defmodule GeoPattern.Patterns.Triangles do
   end
 
   def width(input_string) do
-    (@num_pattern_units_in_row_or_col / 2) * side_length(input_string)
+    trunc((@num_pattern_units_in_row_or_col / 2) * side_length(input_string))
   end
 
   def height(input_string) do
-    triangle_height(input_string) * @num_pattern_units_in_row_or_col
+    trunc(triangle_height(input_string) * @num_pattern_units_in_row_or_col)
   end
 end

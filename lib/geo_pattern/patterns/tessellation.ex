@@ -439,12 +439,12 @@ defmodule GeoPattern.Patterns.Tessellation do
   end
 
   def width(input_string) do
-    side_length(input_string) * 3 + triangle_height(input_string) * 2
+    trunc(side_length(input_string) * 3 + triangle_height(input_string) * 2)
   end
   def tile_width(input_string), do: width(input_string)
 
   def height(input_string) do
-    hex_height(input_string) * 2 + side_length(input_string) * 2
+    trunc(hex_height(input_string) * 2 + side_length(input_string) * 2)
   end
   def tile_height(input_string), do: height(input_string)
 end
