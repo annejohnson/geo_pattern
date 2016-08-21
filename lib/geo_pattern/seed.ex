@@ -1,4 +1,6 @@
 defmodule GeoPattern.Seed do
+  @moduledoc false
+
   def get_hexdigest(input_string) do
     :crypto.hash(:sha, input_string)
     |> Base.encode16

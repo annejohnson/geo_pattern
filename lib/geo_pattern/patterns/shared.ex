@@ -1,4 +1,6 @@
 defmodule GeoPattern.Patterns.Shared do
+  @moduledoc false
+
   alias GeoPattern.Utils
   alias GeoPattern.SVG.{Node, NodeCollection}
 
@@ -6,6 +8,8 @@ defmodule GeoPattern.Patterns.Shared do
 
   defmacro __using__(_) do
     quote do
+      @moduledoc false
+
       alias GeoPattern.Utils
       alias GeoPattern.SVG.{Node, NodeCollection}
 

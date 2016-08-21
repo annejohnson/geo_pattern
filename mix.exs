@@ -28,6 +28,7 @@ defmodule GeoPattern.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:espec, "~> 0.8.21", only: :test}]
+    [{:espec, "~> 0.8.21", only: :test},
+     {:ex_doc, ">= 0.0.0", only: :dev}]
   end
 end
