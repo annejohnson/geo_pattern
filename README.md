@@ -69,6 +69,8 @@ iex> GeoPattern.generate_to_file("fairies", "background.svg", pattern: :concentr
 - [:triangles](https://github.com/annejohnson/geo_pattern/blob/master/examples/triangles.png)
 - [:xes](https://github.com/annejohnson/geo_pattern/blob/master/examples/xes.png)
 
+### View full documentation [here](https://hexdocs.pm/geo_pattern).
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/annejohnson/geo_pattern. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
